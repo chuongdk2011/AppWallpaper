@@ -1,0 +1,5 @@
+<!-- res/drawable/button_square.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FF5722"/> <!-- Đặt màu nền của nút (ví dụ: đỏ) -->
+    <corners android:radius="16dp"/> <!-- Đặt độ cong góc là 0dp để làm cho nút thành hình vuông -->
+</shape>
