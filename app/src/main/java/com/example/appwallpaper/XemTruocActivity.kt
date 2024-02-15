@@ -45,11 +45,16 @@ class XemTruocActivity : AppCompatActivity() {
     private fun showDialog() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.customdialog)
+
+// Thiết lập kích thước cho dialog
         val layoutParams = WindowManager.LayoutParams()
         layoutParams.copyFrom(dialog.window?.attributes)
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+        layoutParams.width = resources.getDimensionPixelSize(R.dimen.dialog_width) // Đặt kích thước cố định cho chiều ngang
         layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
         dialog.window?.attributes = layoutParams
+
+// Các lệnh khác trong showDialog() không thay đổi
+
 
         val lll_mhc: LinearLayout = dialog.findViewById(R.id.lll_mhc)
         val lll_mhk: LinearLayout = dialog.findViewById(R.id.lll_mhk)
