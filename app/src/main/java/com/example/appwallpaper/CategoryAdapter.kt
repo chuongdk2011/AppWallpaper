@@ -40,8 +40,8 @@ class CategoryAdapter(var catList: ArrayList<CatDTO>, var wallpaperList: ArrayLi
                 .into(holder.img_first)
         } else {
             // Nếu không có ảnh, có thể hiển thị một ảnh mặc định hoặc ẩn ImageView
-            // Glide.with(holder.itemView.context).clear(holder.img_first)
-             holder.img_first.visibility = View.GONE
+             Glide.with(holder.itemView.context).clear(holder.img_first)
+             holder.img_first.setImageResource(R.drawable.anhthietbi)
         }
 
         holder.itemView.setOnClickListener {

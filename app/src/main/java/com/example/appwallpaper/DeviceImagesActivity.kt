@@ -64,7 +64,7 @@ class DeviceImagesActivity : AppCompatActivity() {
                 )
 
                 // Thêm các ảnh vào danh sách
-                list.add(WallpaperDTO(1, contentUri.toString(), 1))
+                list.add(0,WallpaperDTO(1, contentUri.toString(), 1))
             }
         }
 
