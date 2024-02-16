@@ -30,7 +30,7 @@ class XemTruocActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_xem_truoc)
         linkanh = intent.getStringExtra("linkanh")!!
-        var btn_ok = findViewById<Button>(R.id.btn_dathinhnen)
+        var btn_ok = findViewById<TextView>(R.id.tv_set)
         var img_xemtruoc = findViewById<ImageView>(R.id.img_xemtruoc)
         var img_back = findViewById<ImageView>(R.id.img_back)
 
@@ -46,14 +46,13 @@ class XemTruocActivity : AppCompatActivity() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.customdialog)
 
-// Thiết lập kích thước cho dialog
+
         val layoutParams = WindowManager.LayoutParams()
         layoutParams.copyFrom(dialog.window?.attributes)
         layoutParams.width = resources.getDimensionPixelSize(R.dimen.dialog_width) // Đặt kích thước cố định cho chiều ngang
         layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT
         dialog.window?.attributes = layoutParams
 
-// Các lệnh khác trong showDialog() không thay đổi
 
 
         val lll_mhc: LinearLayout = dialog.findViewById(R.id.lll_mhc)

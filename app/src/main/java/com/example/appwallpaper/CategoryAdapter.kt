@@ -45,11 +45,16 @@ class CategoryAdapter(var catList: ArrayList<CatDTO>, var wallpaperList: ArrayLi
         }
 
         holder.itemView.setOnClickListener {
-            var  intent = Intent(holder.itemView.context,DetailWallpaperActivity::class.java);
-            intent.putExtra("catId", curCat.id)
-            intent.putExtra("catName", catName)
-            Log.d("chuongdk", "onBindViewHolder: "+curCat.id)
-            holder.itemView.context.startActivity(intent)
+            if (curCat.id == 1) {
+                val intent = Intent(holder.itemView.context, DeviceImagesActivity::class.java)
+
+                holder.itemView.context.startActivity(intent)
+            } else {
+                val intent = Intent(holder.itemView.context, DetailWallpaperActivity::class.java)
+                intent.putExtra("catId", curCat.id)
+                intent.putExtra("catName", catName)
+                holder.itemView.context.startActivity(intent)
+            }
         }
     }
 

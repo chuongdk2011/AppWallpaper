@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppWallpaper"
         tools:targetApi="31">
+        <activity
+            android:name=".DeviceImagesActivity"
+            android:exported="false" />
         <activity
             android:name=".XemTruocActivity"
             android:exported="false" />

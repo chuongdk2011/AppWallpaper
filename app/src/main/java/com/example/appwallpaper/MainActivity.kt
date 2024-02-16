@@ -54,9 +54,12 @@ class MainActivity : AppCompatActivity() {
                 catList.add(0, deviceCatDTO)
 
                 // Lấy ảnh từ drawable
-                val drawableImageName = "anhthietbi" // Thay thế "your_drawable_image_name" bằng tên của ảnh trong drawable
-                val drawableImageId = resources.getIdentifier(drawableImageName, "drawable", packageName)
-                val drawableImagePath = "android.resource://${packageName}/drawable/${drawableImageName}"
+                val drawableImageName =
+                    "anhthietbi" // Thay thế "your_drawable_image_name" bằng tên của ảnh trong drawable
+                val drawableImageId =
+                    resources.getIdentifier(drawableImageName, "drawable", packageName)
+                val drawableImagePath =
+                    "android.resource://${packageName}/drawable/${drawableImageName}"
 
 
                 val deviceWallpaperDTO = WallpaperDTO(1, drawableImagePath, 1)
@@ -106,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             )
         } else {
             // Quyền đã được cấp, thực hiện các hành động cần thiết
-            showToast("Quyền đọc bộ nhớ đã được cấp!")
+
         }
     }
 
@@ -118,10 +121,10 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == READ_STORAGE_PERMISSION_CODE) {
-            // Kiểm tra xem quyền đã được cấp hay không
+
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Quyền đã được cấp, thực hiện các hành động cần thiết
-                showToast("Quyền đọc bộ nhớ đã được cấp!")
+
+
             } else {
                 // Quyền bị từ chối, hiển thị thông báo
                 showToast("Quyền đọc bộ nhớ bị từ chối!")
