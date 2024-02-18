@@ -4,13 +4,21 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.database.*
+import com.google.firebase.remoteconfig.ConfigUpdate
+import com.google.firebase.remoteconfig.ConfigUpdateListener
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigException
+import com.google.firebase.remoteconfig.remoteConfig
+import com.google.firebase.remoteconfig.remoteConfigSettings
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dbRef: DatabaseReference
     private lateinit var wallpaperAdapter: CategoryAdapter
     private val READ_STORAGE_PERMISSION_CODE = 123
+    private lateinit var tv_title:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +38,49 @@ class MainActivity : AppCompatActivity() {
         fetchWallpaperData()
         FirebaseAnalytics.getInstance(this)
         checkReadStoragePermission()
+
+        val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
+
+        val content = remoteConfig.getString("add_a_category")
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val updated = task.result
+
+                    Log.d("chuongdk", "Config params updated: $updated")
+                    Toast.makeText(this, "Fetch and activate succeeded", Toast.LENGTH_SHORT,).show()
+                } else {
+                    Toast.makeText(this, "Fetch failed", Toast.LENGTH_SHORT,).show()
+                }
+                tv_title.text = content
+            }
+
+        remoteConfig.addOnConfigUpdateListener(object : ConfigUpdateListener {
+            override fun onUpdate(configUpdate : ConfigUpdate) {
+                Log.d("chuongdk", "Updated keys: " + configUpdate.updatedKeys);
+
+                Log.d("chuongdk", "onUpdate: $content")
+                if (configUpdate.updatedKeys.contains("add_a_category")) {
+                    remoteConfig.activate().addOnCompleteListener {
+                        tv_title.text = content
+                    }
+                }
+            }
+
+            override fun onError(error : FirebaseRemoteConfigException) {
+                Log.w("chuongdk", "Config update error with code: " + error.code, error)
+            }
+        })
     }
 
     private fun initView() {
         rcv_wall = findViewById(R.id.rcv_wall)
+        tv_title = findViewById(R.id.tv_title)
     }
 
     private fun setupRecyclerView() {

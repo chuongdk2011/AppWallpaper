@@ -5,6 +5,7 @@ class WallpaperDTO(
     var image:String = "",
     var idCat:Int = 0,
 
+    
 ) {
 
 }
