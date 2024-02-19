@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                 val wallpaperList = ArrayList<WallpaperDTO>()
 
 
-                val deviceCatDTO = CatDTO(1, "Ảnh thiết bị")
+                val deviceCatDTO = CatDTO("1", "Ảnh thiết bị")
                 catList.add(0, deviceCatDTO)
 
                 // Lấy ảnh từ drawable
@@ -110,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                     "android.resource://${packageName}/drawable/${drawableImageName}"
 
 
-                val deviceWallpaperDTO = WallpaperDTO(1, drawableImagePath, 1)
+                val deviceWallpaperDTO = WallpaperDTO("1", drawableImagePath, "1")
                 wallpaperList.add(deviceWallpaperDTO)
 
                 val categorySnapshot = snapshot.child("Category")
@@ -121,8 +121,10 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     val imageSnapshot = snapshot.child("Image").children.firstOrNull {
-                        it.child("idCat").getValue(Long::class.java) == cat?.id?.toLong()
+                        it.child("idCat").getValue(String::class.java)?.toString() == cat?.id
                     }
+
+
                     val wallpaper = imageSnapshot?.getValue(WallpaperDTO::class.java)
                     wallpaper?.let {
                         wallpaperList.add(it)

@@ -17,7 +17,7 @@ class DetailWallpaperActivity : AppCompatActivity() {
 
     lateinit var btn_back:ImageView
     lateinit var tv_title:TextView
-    var idCat:Int = 0
+    var idCat:String = "0"
     private lateinit var rcv_wall: RecyclerView
     private lateinit var dbRef: DatabaseReference
     private lateinit var wallpaperAdapter: WallpaperAdapter
@@ -30,7 +30,7 @@ class DetailWallpaperActivity : AppCompatActivity() {
         initView()
 
         tv_title.text = intent.getStringExtra("catName")
-        idCat = intent.getIntExtra("catId",0)
+        idCat = intent.getStringExtra("catId")!!
         btn_back.setOnClickListener {
             onBackPressed()
         }
@@ -44,7 +44,7 @@ class DetailWallpaperActivity : AppCompatActivity() {
                     var wallDTO = listwall.getValue(WallpaperDTO::class.java)
 
                     wallDTO?.let {
-                        if (wallDTO.idCat== idCat){
+                        if (wallDTO.idCat == idCat){
                             list.add(it)
                         }
 

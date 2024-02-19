@@ -1,7 +1,7 @@
 package com.example.appwallpaper
 
 class CatDTO(
-    var id:Int = 0,
+    var id:String = "",
     var name:String = "",
 
 ) {

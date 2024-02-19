@@ -45,7 +45,7 @@ class CategoryAdapter(var catList: ArrayList<CatDTO>, var wallpaperList: ArrayLi
         }
 
         holder.itemView.setOnClickListener {
-            if (curCat.id == 1) {
+            if (curCat.id == "1") {
                 val intent = Intent(holder.itemView.context, DeviceImagesActivity::class.java)
 
                 holder.itemView.context.startActivity(intent)
